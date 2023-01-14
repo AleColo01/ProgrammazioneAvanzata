@@ -40,7 +40,7 @@ int main() {
 	Birra b2 = Birra();
 
 	// OOPS... CANCELLO LA BIRRA DI TROPPO, CHE DIVENTA NULLA (ID = 0)
-	delete &b2;
+	//delete &b2;
 	cout << b2.toString() << endl;
 
 	cout << endl;
