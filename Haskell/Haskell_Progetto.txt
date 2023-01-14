@@ -1,0 +1,82 @@
+-- assegna il prezzo in base al prodotto scelto
+prodotto :: [Float] -> Int -> Float
+prodotto [] x = 0
+prodotto a x = if (x-1) >= (length a) || x == 0 then 0
+               else a !! (x-1)
+
+-- chiede monete finchè non si arriva al prezzo
+credito :: Float -> IO [Float]
+credito 0 = return []
+credito x = do
+      putStrLn("Inserisci monete:")
+      str <- getLine
+      let coin = read str :: Float
+      if isValid coin then do nextCoin <- credito (round'(x - (min' coin x))) 
+                              return (coin:nextCoin)
+      else do nextCoin <- credito (x)
+              return nextCoin
+
+-- calcola il minore tra due numeri
+min' :: Float->Float->Float
+min' x y = if x<y then x
+            else y
+
+-- verifica se una moneta è valida
+isValid :: Float->Bool
+isValid x = if x==0.1 || x==0.2 || x==0.5|| x==1.0 || x==2.00 then True
+            else False
+
+-- arrotonda alla prima cifra decimale
+round' :: Float -> Float
+round' x = fromIntegral(round (x*10))/ 10
+
+-- riordina l'array in ordine discendente
+sort :: (Ord a) => [a] -> [a]  
+sort [] = []  
+sort (x:xs) =   
+    let minore = sort [a | a <- xs, a <= x]  
+        maggiore = sort [a | a <- xs, a > x]  
+    in  maggiore ++ [x] ++ minore 
+
+-- calcola le monetine da dare per il resto
+resto :: Float->[Float]->[Float]
+resto 0 z = []
+resto x [] = []
+resto x (z:zs) = if z<=x then [z] ++ resto (round'(x-z)) zs
+                 else resto x zs
+
+-- rimuove un array dall'altro
+remove :: (Ord a) => [a] -> [a] -> [a]
+remove x [] = x
+remove [] y = []
+remove (x:xs) (y:ys) = if x==y then remove xs ys
+                       else if x>y then x:(remove xs (y:ys))
+                            else remove (x:ys) ys
+
+-- main LOOP
+main = do 
+      let start = [1.0,0.5,0.2,0.1]
+      let loop money = do
+                putStrLn("")
+                putStrLn("* ACCETTA da 0.10 a 2.00 *")
+                putStrLn("")
+                print(money)
+                putStrLn("")
+                let costi = [0.50,1.00,0.80,0.60]
+                putStrLn "SCEGLI UN PRODOTTO" 
+                putStrLn "1:Caffe 2:Cioccolata 3:The 4:Cappuccino"
+                print costi
+                input1 <- getLine
+                let selected = (read input1 :: Int)
+                let prezzo = prodotto costi selected
+                putStrLn(show(prezzo) ++ " $")
+                array <- credito prezzo
+                let tot = sort(money++array)
+                print(tot)
+                let cred = sum(array)
+                print(cred)
+                print(round'(cred-prezzo))
+                let rest = resto (round'(cred-prezzo)) tot
+                putStrLn("resto: " ++ show(rest))
+                loop (remove (sort tot) (sort rest))
+      loop start
