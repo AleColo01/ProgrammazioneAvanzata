@@ -5,16 +5,15 @@
 //============================================================================
 
 #include <iostream>
+#include <math.h>
 #include "Ingrediente.h"
-using namespace std;
 #include "Prodotto.h"
 #include "Tipo.h"
 #include "Panino.h"
 #include "Acqua.h"
 #include "Birra.h"
 #include "Menu.h"
-#include <math.h>
-
+using namespace std;
 
 int main() {
 	// CREO DIVERSI INGREDIENTI
@@ -38,10 +37,11 @@ int main() {
 	// CREO DUE BIRRE
 	Birra b1 = Birra();
 	Birra b2 = Birra();
+	Birra b3 = Birra();
 
 	// OOPS... CANCELLO LA BIRRA DI TROPPO, CHE DIVENTA NULLA (ID = 0)
-	//delete &b2;
-	cout << b2.toString() << endl;
+	delete &b3;
+	cout << b3.toString() << endl;
 
 	cout << endl;
 

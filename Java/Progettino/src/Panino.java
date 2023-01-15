@@ -24,9 +24,6 @@ public class Panino extends Prodotto{
 	
 	
 	boolean equals(Panino p){
-		/*
-		 * Visibilità package tanto per
-		 */
 		return p.ingredienti.equals(p.ingredienti);
 	}
 

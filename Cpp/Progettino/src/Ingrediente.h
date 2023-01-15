@@ -12,8 +12,6 @@
 #include <math.h>
 using namespace std;
 
-
-
 template <typename T> class Ingrediente {
 	private:
 		T id;
