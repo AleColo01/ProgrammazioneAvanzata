@@ -39,7 +39,7 @@ class Birra : public Prodotto{
 
 		//ritorna sempre 1, override del metodo in Prodotto
 		string check(){
-			return 1;
+			return "1";
 		}
 
 		//azzero l'ID, il ditruttore in Prodotto azzera anche il costo, quindi non serve azzerarlo qui

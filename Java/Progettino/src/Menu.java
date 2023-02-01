@@ -27,6 +27,4 @@ public class Menu implements Visitor<String>{
 		return prod.toString() + " " + nome;
 	}
 
-
-
 }

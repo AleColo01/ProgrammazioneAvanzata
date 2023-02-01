@@ -51,7 +51,7 @@ remove x [] = x
 remove [] y = []
 remove (x:xs) (y:ys) = if x==y then remove xs ys
                        else if x>y then x:(remove xs (y:ys))
-                            else remove (x:ys) ys
+                            else remove (x:xs) ys
 
 -- main LOOP
 main = do 
